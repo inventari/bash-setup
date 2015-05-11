@@ -22,12 +22,16 @@ export PATH=$PATH:.                               #look for executables in the w
 
 ###################################################################################################################
 
+mkdircd () { mkdir -p "$@" && eval cd "\"\$$#\""; }
+
 getmac() { #gets current MAC address of a network connection
     ifconfig $1 | grep '..:..:..:..:..:..$'
 }
+
 genmac() { #generate a MAC adress
     openssl rand -hex 1 | tr '[:lower:]' '[:upper:]' | xargs echo "obase=2;ibase=16;" | bc | cut -c1-6 | sed 's/$/00/' | xargs echo "obase=16;ibase=2;" | bc | sed "s/$/:$(openssl rand -hex 5 | sed 's/\(..\)/\1:/g; s/.$//' | tr '[:lower:]' '[:upper:]')/" 
 }
+
 setmac() { #set a MAC adress to a network connection
     if [[ $# -eq 2 ]]; then
         sudo ifconfig $1 ether $2
