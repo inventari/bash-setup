@@ -1,0 +1,9 @@
+
+# share localhost:80 at remotehost:9000
+$ ssh -p 3030 -f -N -R 9000:localhost:80 user@remotehost
+
+# share remotehost:80 at localhost:8080
+$ ssh -p 3030 -f -N -L 8080:localhost:80 user@remotehost 
+
+# dynamic application-level port forwarding (socks proxy) to remote server
+$ ssh -D 8080 -C -N user@remotehost
