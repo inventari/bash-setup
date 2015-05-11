@@ -21,7 +21,7 @@ setmac() {
     fi
 }
 
-tunnel() {
+proxytunnel() {
     DYNAMIC="8080"
     PORT="22"
     MSG=""
@@ -51,7 +51,7 @@ tunnel() {
                 shift
                 ;;
             -u|--username)
-                USERNAME=$2
+                USERNAME=$2'@'
                 shift
                 ;;
             *)
@@ -60,7 +60,7 @@ tunnel() {
         shift
     done
         if [[ -z "$MSG" ]]; then
-            ssh -D $DYNAMIC $Background -C -N $USERNAME@$ADDRESS $BACKGROUND -p $PORT 
+            ssh -D $DYNAMIC $Background -C -N $USERNAME$ADDRESS $BACKGROUND -p $PORT 
         else
             echo -e $MSG
         fi
