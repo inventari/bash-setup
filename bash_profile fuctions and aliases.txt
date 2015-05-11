@@ -1,10 +1,11 @@
 # These are designed for use in an osx environment (may or may not work on other systems)
-
 alias mysql=/usr/local/mysql/bin/mysql            #mysql path
 alias mysqladmin=/usr/local/mysql/bin/mysqladmin  #mysqladmin path
 alias 'sha256'='shasum -a 256'                    #generate a sha256 hash
 alias 'files'='find . -type f | wc -l'            #counts the number of files in directory
 alias 'quitdock'='killall -KILL Dock'             #kills osx dock
+
+alias 'ps'='ps -ef'                               #show all
 export PATH=$PATH:.                               #look for executables in the working directory
 
 getmac() { #gets current MAC address of a network connection
