@@ -8,7 +8,6 @@ alias 'files'='find . -type f | wc -l'            #counts the number of files in
 alias 'quitdock'='killall -KILL Dock'             #kills osx dock
 alias cleardnscache='sudo killall -HUP mDNSResponder'
 alias nospotlight='sudo mdutil -a -i off'
-alias 'downloadhistory'='sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* 'select LSQuarantineDataURLString from LSQuarantineEvent'
 ###################################################################################################################
 
 alias 'sha256'='shasum -a 256'                    #generate a sha256 hash
