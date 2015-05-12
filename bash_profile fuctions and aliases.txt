@@ -8,7 +8,7 @@ alias 'files'='find . -type f | wc -l'            #counts the number of files in
 alias 'quitdock'='killall -KILL Dock'             #kills osx dock
 alias cleardnscache='sudo killall -HUP mDNSResponder'
 alias nospotlight='sudo mdutil -a -i off'
-
+alias 'downloadhistory'='sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* 'select LSQuarantineDataURLString from LSQuarantineEvent'
 ###################################################################################################################
 
 alias 'sha256'='shasum -a 256'                    #generate a sha256 hash
@@ -23,7 +23,28 @@ export PATH=$PATH:.                               #look for executables in the w
 ###################################################################################################################
 
 mkdircd () { mkdir -p "$@" && eval cd "\"\$$#\""; }
-
+downloadhistory() {
+    sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* 'select LSQuarantineDataURLString from LSQuarantineEvent'
+    while [[ $# -ge 1 ]]; do
+        key="$1"
+        case $key in
+            -h|--help)
+                MSG="This shows the osx download history\nUsage: $0 --clear"
+                shift
+                ;;
+            -c|-rm|--clear|--remove)
+                sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* 'delete from LSQuarantineEvent'
+                shift
+                ;;
+            *)
+            ;;
+        esac
+        shift
+    done
+}
+rmdownloadhistory() {
+    sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* 'select LSQuarantineDataURLString from LSQuarantineEvent'
+}
 getmac() { #gets current MAC address of a network connection
     ifconfig $1 | grep '..:..:..:..:..:..$'
 }
