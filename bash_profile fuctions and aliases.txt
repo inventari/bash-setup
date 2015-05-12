@@ -41,9 +41,6 @@ downloadhistory() {
         shift
     done
 }
-rmdownloadhistory() {
-    sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* 'select LSQuarantineDataURLString from LSQuarantineEvent'
-}
 getmac() { #gets current MAC address of a network connection
     ifconfig $1 | grep '..:..:..:..:..:..$'
 }
