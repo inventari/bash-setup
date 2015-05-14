@@ -1,6 +1,6 @@
 <?php
 
-	$sqlconnection = mysqli_connect("localhost", "management", "manage", "management");
+	$sqlconnection = mysqli_connect("localhost", "sqlusername", "sqlpassword", "management");
     // Check connection
     if (mysqli_connect_errno()) {
         echo "FALSE";
