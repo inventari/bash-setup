@@ -13,10 +13,10 @@ TMPFILE="/tmp/temp-download"
 ####################################################################################################
 
 #checks for connection to server
-if [[ $(ping -t 6 -o -q cdp.fcs.org > /dev/null 2>&1 && echo 1 || echo 0) -eq 1 ]]; then
+if [[ $(ping -t 6 -o -q $(echo $SERVER | sed 's/^http.\:\/\///' | sed 's/\/$//') > /dev/null 2>&1 && echo 1 || echo 0) -eq 1 ]]; then
 
-    #checks if plist file is newer than 1 hour
-    if [ "$(find $PLIST -mtime -0h01m)" == "" ]; then
+    #checks if plist file is newer than 30 min
+    if [ "$(find $PLIST -mtime -0h30m)" == "" ]; then
         echo -e $'\e[32m'"Downloading PLIST"
         ## get plist from server
         curl -s $SERVER'management/files.php?hostname='$(hostname) > $PLIST
@@ -47,7 +47,7 @@ if [[ $(ping -t 6 -o -q cdp.fcs.org > /dev/null 2>&1 && echo 1 || echo 0) -eq 1 
                     echo -e $'\e[32m'  "      |--Post-Script" || (echo -e $'\e[31m' "      |--Post-Script Failed" && learnfromfailure > /dev/null 2>&1)
                 ) && (
                     test -f $InstallLocation && test $ServerHash == $(md5 -q $InstallLocation) &&
-                    echo -e $'\e[32m'  "      |--Updated"     || echo -e $'\e[31m' "      |--Update Failed"
+                    echo -e $'\e[32m'  "      |--Updated"     ||  echo -e $'\e[31m' "      |--Update Failed"
                 )
             else
                 echo -e $'\e[32m'" [$X] Already Installed"
@@ -67,7 +67,7 @@ if [[ $(ping -t 6 -o -q cdp.fcs.org > /dev/null 2>&1 && echo 1 || echo 0) -eq 1 
             echo -e $'\e[32m'  "      |--Post-Script" || (echo -e $'\e[31m' "      |--Post-Script Failed" && learnfromfailure > /dev/null 2>&1)
             ) && (
             test -f $InstallLocation && test $ServerHash == $(md5 -q $InstallLocation) &&
-            echo -e $'\e[32m'  "      |--Installed"   || echo -e $'\e[31m' "      |--Install Failed"
+            echo -e $'\e[32m'  "      |--Installed"   ||  echo -e $'\e[31m' "      |--Install Failed"
             )
         fi
         let X+=1
