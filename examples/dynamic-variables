@@ -11,3 +11,6 @@ sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* 'selec
 
 ## Clear Download Data
 sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* 'delete from LSQuarantineEvent'
+
+## Username
+finger <shortusername> | grep 'Login.*Name..' | sed 's/Login.*Name..//'
