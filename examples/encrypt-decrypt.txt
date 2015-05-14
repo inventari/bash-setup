@@ -1,0 +1,19 @@
+# Simple encryption  (.txt only)
+## Encrypt file
+openssl enc -aes-256-cbc -e -in 2b_encrypted.txt -out encrypted.txt -pass pass:5up3r53cr3tPa55w0rd
+
+## Decrypt file
+openssl enc -aes-256-cbc -d -in encrypted.txt -out new_decrypted.txt -pass pass:5up3r53cr3tPa55w0rd
+
+# Keyed encryption
+## Generate a private key (should be 2048 bits or more)
+openssl genrsa -out private_key.pem 2048
+
+## Generate a public key
+openssl rsa -in private_key.pem -out public_key.pem -outform PEM -pubout
+
+## Encrypt file
+rsautl -encrypt -inkey public_key.pem -pubin -in 2b_encrypted.txt -out encrypted.dat
+
+## Decrypt file
+openssl rsautl -decrypt -inkey private_key.pem -in encrypted.dat -out new_decrypted.txt
