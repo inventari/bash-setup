@@ -20,7 +20,16 @@ alias 'ps'='ps -ef'                               #show all
 export PATH=$PATH:.                               #look for executables in the working directory
 
 ###################################################################################################################
-
+hideapp() {
+osascript -e 'tell application "Finder"' -e 'set visible of process "'$1'" to false' -e 'end tell'
+}
+showapp() {
+osascript -e 'tell application "Finder"' -e 'set visible of process "'$1'" to false' -e 'end tell'
+}
+quitapp() {
+osascript -e 'quit app "'$1'"'
+}
+###################################################################################################################
 mkdircd () { mkdir -p "$@" && eval cd "\"\$$#\""; }
 downloadhistory() {
     sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* 'select LSQuarantineDataURLString from LSQuarantineEvent'
